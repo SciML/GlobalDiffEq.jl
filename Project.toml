@@ -11,6 +11,7 @@ Richardson = "708f8203-808e-40c0-ba2d-98a6953ed40d"
 
 [compat]
 DiffEqBase = "6.47"
+OrdinaryDiffEq = "5.42"
 julia = "1"
 
 [extras]
