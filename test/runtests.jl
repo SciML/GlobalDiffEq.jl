@@ -55,9 +55,9 @@ end;
 
   @testset "Global Pendulum Adjoint" begin
     # The adjoint tests with pendulum! fail because the parameters are a function rather than a scalar
-    sol_adjoint = solve(prob, GlobalAdjoint(SSPRK33()), dt=0.2, reltol=1e-12, abstol=1e-12)
+    sol_adjoint = solve(prob, GlobalAdjoint(SSPRK33()), dt=0.2, reltol=1e-4, abstol=1e-4)
     ve_adjoint = sol_adjoint.(1:10)
-    @test norm(ve_adjoint - v0) / norm(v0) < .001 # error tolerance should be lower
+    @test norm(ve_adjoint - v0) / norm(v0) < 1e-4
   end;
 end;
 
@@ -81,9 +81,9 @@ end;
   end;
 
   @testset "Global Lotka Volterra Adjoint" begin
-    sol_LV_adjoint = solve(prob_LV, GlobalAdjoint(Tsit5()), dt=0.2, reltol=1e-12, abstol=1e-12)
+    sol_LV_adjoint = solve(prob_LV, GlobalAdjoint(Tsit5()), dt=0.2, reltol=1e-4, abstol=1e-4)
     ve_LV_adjoint = sol_LV_adjoint.(1:10)
-    @test norm(ve_LV_adjoint - v0_LV) / norm(v0_LV) < 1e-8 # error tolerance should be lower
+    @test norm(ve_LV_adjoint - v0_LV) / norm(v0_LV) < 1e-4 # result error too low?
   end;
 end;
 

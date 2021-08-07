@@ -1,11 +1,16 @@
-vec_expt_est(n) = sqrt(2 / (π*(n - 1/2))) # Estimate method. Not used, but could substitute for vec_expt_full.
+function vec_expt_est(n)
+    # Estimate method. Not used, but could substitute for vec_expt_full.
+    Eₙ = sqrt(2 / (π*(n - 1/2)))
+    return Eₙ
+end
 
 function vec_expt_full(n)
     if isodd(n)
-        return prod(range(1, n-2, step=2)) / prod(range(2, n-1, step=2))
+        Eₙ = prod(range(1, n-2, step=2)) / prod(range(2, n-1, step=2))
     else
-        return (2/π) * prod(range(2, n-2, step=2)) / prod(range(1, n-1, step=2))
+        Eₙ = (2/π) * prod(range(2, n-2, step=2)) / prod(range(1, n-1, step=2))
     end
+    return Eₙ
 end
 
 function orth_vec(n)
