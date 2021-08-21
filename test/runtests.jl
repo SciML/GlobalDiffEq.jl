@@ -54,7 +54,7 @@ end;
   end;
 
   @testset "Global Pendulum Adjoint" begin
-    # The adjoint tests with pendulum! fail because the parameters are a function rather than a scalar
+    # The adjoint tests with pendulum! fail because the parameters are a function rather than a constant term
     sol_adjoint = solve(prob, GlobalAdjoint(SSPRK33()), dt=0.2, reltol=1e-4, abstol=1e-4)
     ve_adjoint = sol_adjoint.(1:10)
     @test norm(ve_adjoint - v0) / norm(v0) < 1e-4
@@ -62,7 +62,7 @@ end;
 end;
 
 @testset "Global Lotka Volterra" begin
-  function Lotka_Volterra(du,u,p,t)
+  function Lotka_Volterra!(du,u,p,t)
     du[1] = p[1]*u[1] - p[2]*u[1]*u[2]
     du[2] = -p[3]*u[2] + u[1]*u[2]
   end
@@ -70,7 +70,7 @@ end;
   u₀_LV = [1.0;1.0]
   p_LV = [1.5,1.0,3.0]
   tspan_LV = (0.0,10.0)
-  prob_LV = ODEProblem(Lotka_Volterra,u₀_LV,tspan_LV,p_LV)
+  prob_LV = ODEProblem(Lotka_Volterra!,u₀_LV,tspan_LV,p_LV)
 
   v0_LV = solve(prob_LV, Tsit5(), dt=0.1, reltol=1e-12, abstol=0).(1:10)
 
@@ -83,7 +83,7 @@ end;
   @testset "Global Lotka Volterra Adjoint" begin
     sol_LV_adjoint = solve(prob_LV, GlobalAdjoint(Tsit5()), dt=0.2, reltol=1e-4, abstol=1e-4)
     ve_LV_adjoint = sol_LV_adjoint.(1:10)
-    @test norm(ve_LV_adjoint - v0_LV) / norm(v0_LV) < 1e-4 # result error too low?
+    @test norm(ve_LV_adjoint - v0_LV) / norm(v0_LV) < 1e-4
   end;
 end;
 

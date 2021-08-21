@@ -1,8 +1,13 @@
-function adjoint_solve(sol_init, rtol, atol, dg, tstops)
-    adj_prob = DiffEqSensitivity.ODEAdjointProblem(sol_init,
-        DiffEqSensitivity.QuadratureAdjoint(reltol=rtol, abstol=atol),
-        dg, tstops) # λ(T) = z, u₀ = z?
-    λ = solve(adj_prob, sol_init.alg, reltol=rtol, abstol=atol, tstops=tstops)
+function adjoint_solve(prob, sol_init, u₀, tstops, p, rtol, atol)
+    de = ModelingToolkit.modelingtoolkitize(prob)
+    sym_jac = eval(ModelingToolkit.generate_jacobian(de)[1])
+    function adjoint!(du, u, p, t)
+        du = -Base.invokelatest(sym_jac, sol_init(t), p, t)' * u
+    end
+    rev_tstops = reverse(tstops) # reverse tstops for λ(T) = u₀?
+    rev_tspan = (rev_tstops[1], rev_tstops[end])
+    adj_prob = ODEProblem(adjoint!, u₀, rev_tspan, p)
+    λ = solve(adj_prob, sol_init.alg, reltol=rtol, abstol=atol, tstops=rev_tstops)
     return λ
 end
 
