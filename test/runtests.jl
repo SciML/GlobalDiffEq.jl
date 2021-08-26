@@ -81,9 +81,9 @@ end;
   end;
 
   @testset "Global Lotka Volterra Adjoint" begin
-    sol_LV_adjoint = solve(prob_LV, GlobalAdjoint(Tsit5()), dt=0.2, reltol=1e-4, abstol=1e-4)
+    sol_LV_adjoint = solve(prob_LV, GlobalAdjoint(Tsit5()), dt=0.2, reltol=1e-10, abstol=1e-10)
     ve_LV_adjoint = sol_LV_adjoint.(1:10)
-    @test norm(ve_LV_adjoint - v0_LV) / norm(v0_LV) < 1e-4
+    @test norm(ve_LV_adjoint - v0_LV) / norm(v0_LV) < 1e-10
   end;
 end;
 
