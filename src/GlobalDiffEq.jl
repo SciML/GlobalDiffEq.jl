@@ -4,6 +4,7 @@ using Reexport
 @reexport using DiffEqBase
 
 import OrdinaryDiffEq, Richardson
+using PrecompileTools
 
 abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
 
@@ -23,11 +24,28 @@ function DiffEqBase.__solve(
     err = Richardson.extrapolate(dt, rtol = get(opt, :reltol, 1e-3),
         atol = get(opt, :abstol, 1e-6), contract = 0.5) do _dt
         sol = solve(prob, alg.alg, args...; dt = _dt, adaptive = false, otheropts...)
-        sol.(tstops)
+        # Convert Vector{Vector{T}} to Matrix{T} for Richardson.jl compatibility
+        reduce(hcat, sol.(tstops))
     end
     return sol
 end
 
 export GlobalRichardson
+
+@setup_workload begin
+    # Simple test ODE: exponential decay du/dt = -u
+    function f!(du, u, p, t)
+        du[1] = -u[1]
+    end
+    u0 = [1.0]
+    tspan = (0.0, 1.0)
+    prob = ODEProblem(f!, u0, tspan)
+
+    @compile_workload begin
+        # Precompile with SSPRK33 (commonly used explicit method)
+        solve(prob, GlobalRichardson(OrdinaryDiffEq.SSPRK33()),
+            dt = 0.1, reltol = 1e-3, abstol = 1e-6)
+    end
+end
 
 end
