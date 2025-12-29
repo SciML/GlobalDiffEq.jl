@@ -6,12 +6,14 @@ version = "0.1.1"
 [deps]
 DiffEqBase = "2b5f629d-d688-5b77-993f-72d75c75574e"
 OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
+PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Richardson = "708f8203-808e-40c0-ba2d-98a6953ed40d"
 
 [compat]
 DiffEqBase = "6.47"
 OrdinaryDiffEq = "5.42, 6.103"
+PrecompileTools = "1"
 Reexport = "0.2, 1.0"
 Richardson = "1.2"
 julia = "1.6"
