@@ -5,7 +5,7 @@ using Reexport: @reexport
 
 using Richardson: extrapolate
 using PrecompileTools: @setup_workload, @compile_workload
-using SciMLBase: ODEProblem, __solve, AbstractODEProblem, AbstractDAEProblem
+using SciMLBase: ODEProblem, __solve, AbstractODEProblem, AbstractDAEProblem, AbstractODEAlgorithm
 using CommonSolve: solve
 
 abstract type GlobalDiffEqAlgorithm <: AbstractODEAlgorithm end
