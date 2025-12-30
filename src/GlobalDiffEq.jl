@@ -8,7 +8,7 @@ using PrecompileTools: @setup_workload, @compile_workload
 using SciMLBase: ODEProblem, __solve, AbstractODEProblem, AbstractDAEProblem
 using CommonSolve: solve, 
 
-abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
+abstract type GlobalDiffEqAlgorithm <: AbstractODEAlgorithm end
 
 struct GlobalRichardson{A} <: GlobalDiffEqAlgorithm
     alg::A
