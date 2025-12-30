@@ -1,26 +1,31 @@
 name = "GlobalDiffEq"
 uuid = "1d72d19b-84cc-4cb7-a099-7cbdb9ccc67c"
-authors = ["Chris Rackauckas <accounts@chrisrackauckas.com> and contributors"]
 version = "0.1.1"
+authors = ["Chris Rackauckas <accounts@chrisrackauckas.com> and contributors"]
 
 [deps]
+CommonSolve = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
 DiffEqBase = "2b5f629d-d688-5b77-993f-72d75c75574e"
 OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
 PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Richardson = "708f8203-808e-40c0-ba2d-98a6953ed40d"
+SciMLBase = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
 
 [compat]
+CommonSolve = "0.2.6"
 DiffEqBase = "6.47"
 OrdinaryDiffEq = "5.42, 6.103"
 PrecompileTools = "1"
 Reexport = "0.2, 1.0"
 Richardson = "1.2"
+SciMLBase = "2.131.0"
 julia = "1.6"
 
 [extras]
+ExplicitImports = "7d51a73a-1435-4ff3-83d9-f097790105c7"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["LinearAlgebra", "Test"]
+test = ["ExplicitImports", "LinearAlgebra", "Test"]

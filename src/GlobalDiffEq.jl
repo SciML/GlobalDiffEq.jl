@@ -1,10 +1,13 @@
 module GlobalDiffEq
 
-using Reexport
+using Reexport: @reexport
 @reexport using DiffEqBase
+import DiffEqBase
 
-import OrdinaryDiffEq, Richardson
-using PrecompileTools
+import OrdinaryDiffEq, Richardson, SciMLBase
+using PrecompileTools: @setup_workload, @compile_workload
+using SciMLBase: ODEProblem
+using CommonSolve: solve
 
 abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
 

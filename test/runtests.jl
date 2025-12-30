@@ -1,5 +1,6 @@
 using GlobalDiffEq, OrdinaryDiffEq, LinearAlgebra
 using Test
+using ExplicitImports
 
 l = 1.0                             # length [m]
 m = 1.0                             # mass[m]
@@ -22,3 +23,8 @@ prob = ODEProblem(pendulum!, u₀, tspan, M)
 v0 = solve(prob, Tsit5(), dt = 0.1, reltol = 1e-12, abstol = 0).(1:10)
 ve = solve(prob, GlobalRichardson(SSPRK33()), dt = 0.2, reltol = 1e-12, abstol = 0).(1:10)
 @test norm(ve - v0) / norm(v0) < 1e-10
+
+@testset "ExplicitImports" begin
+    @test check_no_implicit_imports(GlobalDiffEq) === nothing
+    @test check_no_stale_explicit_imports(GlobalDiffEq) === nothing
+end
