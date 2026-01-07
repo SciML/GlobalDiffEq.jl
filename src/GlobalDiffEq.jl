@@ -8,7 +8,7 @@ using PrecompileTools
 
 abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
 
-struct GlobalRichardson{A} <: GlobalDiffEqAlgorithm
+struct GlobalRichardson{A <: DiffEqBase.AbstractODEAlgorithm} <: GlobalDiffEqAlgorithm
     alg::A
 end
 
