@@ -24,7 +24,8 @@ import DiffEqBase: SciMLBase
 
         v0 = solve(prob, Tsit5(), dt = 0.1, reltol = 1.0e-12, abstol = 0).(1:10)
         ve = solve(
-            prob, GlobalRichardson(SSPRK33()), dt = 0.2, reltol = 1.0e-12, abstol = 0).(1:10)
+            prob, GlobalRichardson(SSPRK33()), dt = 0.2, reltol = 1.0e-12, abstol = 0
+        ).(1:10)
         @test norm(ve - v0) / norm(v0) < 1.0e-10
     end
 
@@ -33,7 +34,7 @@ import DiffEqBase: SciMLBase
         alg = GlobalRichardson(alg_inner)
 
         @test SciMLBase.allows_arbitrary_number_types(alg) ==
-              SciMLBase.allows_arbitrary_number_types(alg_inner)
+            SciMLBase.allows_arbitrary_number_types(alg_inner)
         @test SciMLBase.allowscomplex(alg) == SciMLBase.allowscomplex(alg_inner)
         @test SciMLBase.isautodifferentiable(alg) == SciMLBase.isautodifferentiable(alg_inner)
     end
@@ -47,11 +48,13 @@ import DiffEqBase: SciMLBase
         tspan_bf = (BigFloat(0.0), BigFloat(1.0))
         prob_bf = ODEProblem(f_bf!, u0_bf, tspan_bf)
 
-        sol_bf = solve(prob_bf, GlobalRichardson(SSPRK33()),
-            dt = BigFloat(0.1), reltol = BigFloat(1e-3), abstol = BigFloat(1e-6))
+        sol_bf = solve(
+            prob_bf, GlobalRichardson(SSPRK33()),
+            dt = BigFloat(0.1), reltol = BigFloat(1.0e-3), abstol = BigFloat(1.0e-6)
+        )
 
         @test eltype(sol_bf.u[end]) == BigFloat
         # Check solution is reasonable (e^-1 ≈ 0.368)
-        @test isapprox(sol_bf.u[end][1], exp(BigFloat(-1)), rtol = 1e-4)
+        @test isapprox(sol_bf.u[end][1], exp(BigFloat(-1)), rtol = 1.0e-4)
     end
 end
