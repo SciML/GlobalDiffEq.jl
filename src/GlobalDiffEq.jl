@@ -3,7 +3,7 @@ module GlobalDiffEq
 using Reexport
 @reexport using DiffEqBase
 
-import OrdinaryDiffEq, Richardson
+import OrdinaryDiffEq, Richardson, SciMLBase
 using PrecompileTools
 
 abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
@@ -11,6 +11,15 @@ abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
 struct GlobalRichardson{A} <: GlobalDiffEqAlgorithm
     alg::A
 end
+
+# Forward algorithm traits to the wrapped algorithm
+# This allows GlobalRichardson to inherit capabilities from the inner algorithm
+SciMLBase.allows_arbitrary_number_types(alg::GlobalRichardson) =
+    SciMLBase.allows_arbitrary_number_types(alg.alg)
+SciMLBase.allowscomplex(alg::GlobalRichardson) =
+    SciMLBase.allowscomplex(alg.alg)
+SciMLBase.isautodifferentiable(alg::GlobalRichardson) =
+    SciMLBase.isautodifferentiable(alg.alg)
 
 function DiffEqBase.__solve(
         prob::Union{DiffEqBase.AbstractODEProblem, DiffEqBase.AbstractDAEProblem},
