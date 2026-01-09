@@ -3,8 +3,7 @@ module GlobalDiffEq
 using Reexport
 @reexport using DiffEqBase
 
-import OrdinaryDiffEq, Richardson
-import DiffEqBase: SciMLBase
+import OrdinaryDiffEq, Richardson, SciMLBase
 using PrecompileTools
 
 abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
