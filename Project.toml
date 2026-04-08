@@ -17,7 +17,7 @@ OrdinaryDiffEq = "5.42, 6.103"
 PrecompileTools = "1"
 Reexport = "0.2, 1.0"
 Richardson = "1.2"
-SciMLBase = "2"
+SciMLBase = "2, 3.0"
 julia = "1.6"
 
 [extras]
