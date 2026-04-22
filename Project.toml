@@ -12,7 +12,7 @@ Richardson = "708f8203-808e-40c0-ba2d-98a6953ed40d"
 SciMLBase = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
 
 [compat]
-DiffEqBase = "6.47"
+DiffEqBase = "6.47, 7.0"
 OrdinaryDiffEq = "5.42, 6.103"
 PrecompileTools = "1"
 Reexport = "0.2, 1.0"
