@@ -1,5 +1,6 @@
 using Pkg
 using GlobalDiffEq, OrdinaryDiffEq, LinearAlgebra
+using OrdinaryDiffEqSSPRK
 using Test
 import DiffEqBase: SciMLBase
 

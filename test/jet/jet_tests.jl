@@ -1,4 +1,5 @@
 using GlobalDiffEq, OrdinaryDiffEq
+using OrdinaryDiffEqSSPRK
 using JET
 using Test
 
