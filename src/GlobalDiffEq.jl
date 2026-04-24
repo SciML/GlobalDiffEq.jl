@@ -54,9 +54,10 @@ export GlobalRichardson
     prob = ODEProblem(f!, u0, tspan)
 
     @compile_workload begin
-        # Precompile with SSPRK33 (commonly used explicit method)
+        # Precompile with Tsit5 (exported from the default OrdinaryDiffEq set
+        # on v7; available on all supported OrdinaryDiffEq versions).
         solve(
-            prob, GlobalRichardson(OrdinaryDiffEq.SSPRK33()),
+            prob, GlobalRichardson(OrdinaryDiffEq.Tsit5()),
             dt = 0.1, reltol = 1.0e-3, abstol = 1.0e-6
         )
     end
