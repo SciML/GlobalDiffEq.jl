@@ -1,7 +1,5 @@
 using Pkg
 using GlobalDiffEq, OrdinaryDiffEq, LinearAlgebra
-# SSPRK33 moved out of the default OrdinaryDiffEq export set on v7; load the
-# sublibrary explicitly so the tests continue to exercise a non-default solver.
 using OrdinaryDiffEqSSPRK
 using Test
 import DiffEqBase: SciMLBase

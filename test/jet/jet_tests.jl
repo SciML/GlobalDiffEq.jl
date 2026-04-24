@@ -1,5 +1,4 @@
 using GlobalDiffEq, OrdinaryDiffEq
-# SSPRK33 moved out of the default OrdinaryDiffEq export set on v7.
 using OrdinaryDiffEqSSPRK
 using JET
 using Test
