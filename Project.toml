@@ -1,7 +1,7 @@
 name = "GlobalDiffEq"
 uuid = "1d72d19b-84cc-4cb7-a099-7cbdb9ccc67c"
 authors = ["Chris Rackauckas <accounts@chrisrackauckas.com> and contributors"]
-version = "1.1.0"
+version = "1.2.0"
 
 [deps]
 DiffEqBase = "2b5f629d-d688-5b77-993f-72d75c75574e"
@@ -12,16 +12,16 @@ Richardson = "708f8203-808e-40c0-ba2d-98a6953ed40d"
 SciMLBase = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
 
 [compat]
-DiffEqBase = "6.47, 7"
-OrdinaryDiffEq = "5.42, 6.103, 7"
-OrdinaryDiffEqSSPRK = "1, 2"
-OrdinaryDiffEqTsit5 = "1, 2"
+DiffEqBase = "7"
+OrdinaryDiffEq = "7"
+OrdinaryDiffEqSSPRK = "2"
+OrdinaryDiffEqTsit5 = "2"
 PrecompileTools = "1"
 Reexport = "0.2, 1.0"
 Richardson = "1.2"
 SafeTestsets = "0.0.1, 0.1"
-SciMLBase = "2, 3"
-SciMLTesting = "1"
+SciMLBase = "3"
+SciMLTesting = "1.2"
 julia = "1.10"
 
 [extras]
