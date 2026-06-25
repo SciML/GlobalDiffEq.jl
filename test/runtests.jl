@@ -14,20 +14,12 @@ run_tests(;
             include("bigfloat_tests.jl")
         end
     end,
-    groups = Dict(
-        # JET runs the static-analysis tests in its own environment. The original
-        # dispatcher ran these only for GROUP=="JET" (never as part of "All"), so JET
-        # is an env-bearing group kept out of the curated `all`.
-        "JET" => (;
-            env = joinpath(@__DIR__, "JET"),
-            body = function ()
-                return @safetestset "JET static analysis" begin
-                    include(joinpath(@__DIR__, "JET", "jet_tests.jl"))
-                end
-            end,
-        ),
+    # QA group: Aqua + ExplicitImports + JET via SciMLTesting's run_qa. Runs in its
+    # own sub-env (test/qa/Project.toml). Kept out of the curated "All" (env-bearing),
+    # matching the prior JET group's exclusion.
+    qa = (;
+        env = joinpath(@__DIR__, "qa"),
+        body = joinpath(@__DIR__, "qa", "qa.jl"),
     ),
-    # The original runtests.jl ran the Core body for GROUP=All and GROUP=Core, and
-    # ran JET only for GROUP=JET (never under "All"). Curate "All" to Core only.
     all = ["Core"],
 )
