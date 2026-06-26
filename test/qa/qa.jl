@@ -10,7 +10,7 @@ run_qa(
         # These become public as SciMLBase tags releases that declare them.
         all_qualified_accesses_are_public = (;
             ignore = (
-                :AbstractDAEProblem, :AbstractODEAlgorithm, :AbstractODEProblem,
+                :AbstractDAEProblem,
                 :__solve, :allows_arbitrary_number_types, :allowscomplex,
                 :isautodifferentiable,
             ),
