@@ -6,15 +6,9 @@ run_qa(
     GlobalDiffEq;
     explicit_imports = true,
     ei_kwargs = (;
-        # SciMLBase's own non-public names, accessed via their owner (SciMLBase).
-        # These become public as SciMLBase tags releases that declare them.
-        all_qualified_accesses_are_public = (;
-            ignore = (
-                :AbstractDAEProblem,
-                :__solve, :allows_arbitrary_number_types, :allowscomplex,
-                :isautodifferentiable,
-            ),
-        ),
+        # `SciMLBase.__solve` is SciMLBase's internal solve entry point (not part of
+        # the public API); GlobalDiffEq overloads it via its owner SciMLBase.
+        all_qualified_accesses_are_public = (; ignore = (:__solve,)),
     ),
     # `@reexport using DiffEqBase` deliberately reexports DiffEqBase's API, so
     # `DiffEqBase`, `ODEProblem`, and `solve` are inherently implicit. Tracked in
