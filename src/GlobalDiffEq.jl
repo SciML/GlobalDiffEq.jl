@@ -1,14 +1,14 @@
 module GlobalDiffEq
 
-using Reexport
+using Reexport: @reexport
 @reexport using DiffEqBase
 
 import OrdinaryDiffEq, Richardson, SciMLBase
-using PrecompileTools
+using PrecompileTools: @setup_workload, @compile_workload
 
-abstract type GlobalDiffEqAlgorithm <: DiffEqBase.AbstractODEAlgorithm end
+abstract type GlobalDiffEqAlgorithm <: SciMLBase.AbstractODEAlgorithm end
 
-struct GlobalRichardson{A <: DiffEqBase.AbstractODEAlgorithm} <: GlobalDiffEqAlgorithm
+struct GlobalRichardson{A <: SciMLBase.AbstractODEAlgorithm} <: GlobalDiffEqAlgorithm
     alg::A
 end
 
@@ -21,8 +21,8 @@ SciMLBase.allowscomplex(alg::GlobalRichardson) =
 SciMLBase.isautodifferentiable(alg::GlobalRichardson) =
     SciMLBase.isautodifferentiable(alg.alg)
 
-function DiffEqBase.__solve(
-        prob::Union{DiffEqBase.AbstractODEProblem, DiffEqBase.AbstractDAEProblem},
+function SciMLBase.__solve(
+        prob::Union{SciMLBase.AbstractODEProblem, SciMLBase.AbstractDAEProblem},
         alg::GlobalRichardson, args...;
         dt, kwargs...
     )
